@@ -324,6 +324,140 @@
             .destination-gallery img {
                 height: 220px;
             }
+
+            /* Oculta el carrusel existente para priorizar galería antigua */
+            #carousel-destino {
+                display: none !important;
+            }
+        }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            width: 100%;
+        }
+
+        .carousel-slides {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide {
+            display: none;
+        }
+
+        .carousel-slide.fade {
+            display: none;
+            animation: fade 0.5s;
+        }
+
+        .carousel-slide.fade.active {
+            display: block;
+            animation: fade 0.5s;
+        }
+
+        @keyframes fade {
+            from {opacity: 0.4}
+            to {opacity: 1}
+        }
+
+        .carousel-slide figure {
+            margin: 0;
+            width: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-slide figcaption {
+            padding: 15px 20px;
+            text-align: center;
+            background: white;
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .carousel-btn-prev {
+            left: 10px;
+        }
+
+        .carousel-btn-next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            text-align: center;
+            padding: 15px 0;
+            background: white;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #717171;
+        }
+
+        @media (max-width: 600px) {
+            .carousel-slide img {
+                height: 300px;
+            }
+
+            .carousel-btn {
+                font-size: 18px;
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
@@ -424,28 +558,91 @@
             </div>
         </div>
         <div class="row destination-gallery">
-            <div class="col-md-4 col-sm-6">
-                <figure>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Priego_de_C%C3%B3rdoba-Fuente_en_las_Murallas-20110918.jpg" alt="Vista de Priego de Cordoba">
-                    <figcaption>Una primera vista del pueblo para que los invitados se hagan una idea del entorno.</figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <figure>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Clouds_on_Priego_de_C%C3%B3rdoba.png" alt="Panoramica de Priego de Cordoba">
-                    <figcaption>Panoramica de Priego de Cordoba para reforzar la seccion de destino.</figcaption>
-                </figure>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <figure>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Priego_de_C%C3%B3rdoba-Iglesia_de_la_Ascunci%C3%B3n-20110918.jpg" alt="Iglesia de la Asuncion en Priego de Cordoba">
-                    <figcaption>Imagen de la iglesia donde se celebrara la ceremonia.</figcaption>
-                </figure>
+            <div class="col-md-12">
+                <div id="carousel-destino" class="carousel-container">
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn carousel-btn-prev" onclick="carouselPrev()">&#10094;</button>
+                        
+                        <div class="carousel-slides">
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="https://picsum.photos/id/1001/1200/800" alt="Fuente del Rey en Priego de Cordoba">
+                                    <figcaption>Fuente del Rey - Patrimonio histórico del pueblo</figcaption>
+                                </figure>
+                            </div>
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="https://picsum.photos/id/1050/1200/800" alt="Castillo de Priego de Cordoba">
+                                    <figcaption>Castillo - Vistas panorámicas del pueblo</figcaption>
+                                </figure>
+                            </div>
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="data:image/jpeg;base64,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" alt="Jardines de Priego de Cordoba">
+                                    <figcaption>Jardines - Espacios verdes emblemáticos</figcaption>
+                                </figure>
+                            </div>
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="https://picsum.photos/id/1043/1200/800" alt="Adarve de Priego de Cordoba">
+                                    <figcaption>Adarve - Recorrido histórico por las murallas</figcaption>
+                                </figure>
+                            </div>
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="https://picsum.photos/id/1016/1200/800" alt="Paseillo de Priego de Cordoba">
+                                    <figcaption>Paseillo - Paseos por el corazón del pueblo</figcaption>
+                                </figure>
+                            </div>
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="https://picsum.photos/id/1025/1200/800" alt="Iglesia de la Asuncion en Priego de Cordoba">
+                                    <figcaption>Iglesia de la Asunción - Donde se celebrará la ceremonia</figcaption>
+                                </figure>
+                            </div>
+                            <div class="carousel-slide fade">
+                                <figure>
+                                    <img src="https://picsum.photos/id/1035/1200/800" alt="Panorámica de Priego de Cordoba">
+                                    <figcaption>Panorámica aérea - Una vista del entorno completo</figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                        
+                        <button class="carousel-btn carousel-btn-next" onclick="carouselNext()">&#10095;</button>
+                    </div>
+                    
+                    <div class="carousel-dots">
+                        <span class="dot" onclick="currentSlide(0)"></span>
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                        <span class="dot" onclick="currentSlide(4)"></span>
+                        <span class="dot" onclick="currentSlide(5)"></span>
+                        <span class="dot" onclick="currentSlide(6)"></span>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Sección alterna (formato antiguo) -->
+        <div class="row destination-gallery">
+            <div class="col-md-12">
+                <div class="gallery-grid" style="display:grid; gap: 10px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr));">
+                    <figure style="margin:0;"><img src="https://imagenes.elpais.com/resizer/v2/PPKUWKQMYNKH4E4JN4FPMUNW4E.jpg?auth=2bac4c049f965409b216aba3b1442ced59a4a178ba758b2ce8bddff98ddc81f6&width=1960&height=1470&smart=true" alt="Fuente del rey" style="width:100%; height:auto;"><figcaption>Fuente del Rey</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://backsubbetica.novacreative.es/images/items/VcYfuRf7qs8Le1uPd2We6XbCznQ8uiqHJT6H71dx.jpg" alt="Castillo" style="width:100%; height:auto;"><figcaption>Castillo</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://picsum.photos/id/1018/900/600" alt="Jardines" style="width:100%; height:auto;"><figcaption>Jardines</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://picsum.photos/id/1020/900/600" alt="Calle principal" style="width:100%; height:auto;"><figcaption>Calle principal</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://picsum.photos/id/1033/900/600" alt="Foto aérea" style="width:100%; height:auto;"><figcaption>Foto aérea</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://picsum.photos/id/1043/900/600" alt="Adarve" style="width:100%; height:auto;"><figcaption>Adarve</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://backsubbetica.novacreative.es/images/municipios/U7NgYBMrxIyVtbLPNRDkeKcBbMaDwr80tLgOqLGm.jpg" alt="Adarve" style="width:100%; height:auto;"><figcaption>Adarve</figcaption></figure>
+                    <figure style="margin:0;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThg6bjQQSUTsBoq44BIRb0ulUQHVLoJB2PJg&s" alt="Paseillo" style="width:100%; height:auto;"><figcaption>Paseillo</figcaption></figure>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12 text-center">
-                <p class="feature-note">Imagenes de apoyo temporales para presentar Priego de Cordoba mientras definimos la galeria final.</p>
+                <p class="feature-note">Galería de Priego de Cordoba con formato tradicional antiguo: todas las fotos visibles juntas en cuadrícula.</p>
             </div>
         </div>
     </div>
@@ -505,37 +702,67 @@
         <div class="row">
             <div class="col-md-4 col-sm-6">
                 <div class="content-card lodging-card">
-                    <h5>Hotel 1</h5>
-                    <p>Espacio reservado para el primer hotel bloqueado.</p>
+                    <h5>Hotel Río Piscina</h5>
+                    <p><a href="https://www.google.com/maps/dir//Hotel+R%C3%ADo+Piscina,+Carretera+Granada,+s%2Fn,+14800+Priego+de+C%C3%B3rdoba,+C%C3%B3rdoba/@37.4440078,-4.2011524,10z/data=!4m8!4m7!1m0!1m5!1m1!1s0xd6d90fc1f42b8f3:0x6cea34d7638fd83a!2m2!1d-4.183385!2d37.4374744?entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></p>
                     <ul>
-                        <li><strong>Nombre:</strong> Pendiente</li>
-                        <li><strong>Telefono:</strong> Pendiente</li>
-                        <li><strong>Email:</strong> Pendiente</li>
-                        <li><strong>Nota:</strong> Decir que vienes a la boda de Antonio e Isa</li>
+                        <li><strong>Teléfono:</strong> 957 700 186</li>
+                        <li><strong>Precio aprox:</strong> 60 €/noche</li>
+                        <li><strong>Web:</strong> <a href="https://www.hotelriopiscina.com/" target="_blank" rel="noopener noreferrer">hotelriopiscina.com</a></li>
+                        <li><strong>Habitaciones bloqueadas:</strong> 40</li>
+                        <li><strong>Nota:</strong> Llamar diciendo que venís de parte de la boda de Isa y Antonio</li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-4 col-sm-6">
                 <div class="content-card lodging-card">
-                    <h5>Hotel 2</h5>
-                    <p>Espacio reservado para un segundo alojamiento.</p>
+                    <h5>La Hospedería (San Francisco)</h5>
+                    <p><a href="https://www.google.com/maps/dir//Hospeder%C3%ADa+San+Francisco+(Antiguo+Convento),+Calle+Comp%C3%A1s+de+San+Francisco,+15,+14800+Priego+de+C%C3%B3rdoba,+C%C3%B3rdoba/@36.519936,-4.882432,11z/data=!4m8!4m7!1m0!1m5!1m1!1s0xd6d9100046db4d9:0xc4e738c405fac054!2m2!1d-4.1921298!2d37.4367641?entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></p>
                     <ul>
-                        <li><strong>Nombre:</strong> Pendiente</li>
-                        <li><strong>Telefono:</strong> Pendiente</li>
-                        <li><strong>Email:</strong> Pendiente</li>
-                        <li><strong>Nota:</strong> Decir que vienes a la boda de Antonio e Isa</li>
+                        <li><strong>Teléfono:</strong> 957 701 917</li>
+                        <li><strong>Precio aprox:</strong> 75 €/noche</li>
+                        <li><strong>Web:</strong> <a href="https://www.hospederiasanfrancisco.com/" target="_blank" rel="noopener noreferrer">hospederiasanfrancisco.com</a></li>
+                        <li><strong>Habitaciones bloqueadas:</strong> 11</li>
+                        <li><strong>Nota:</strong> Llamar diciendo que venís de parte de la boda de Isa y Antonio</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12">
+            <div class="col-md-4 col-sm-6">
                 <div class="content-card lodging-card">
-                    <h5>Casa rural</h5>
-                    <p>Espacio reservado para una casa rural o alojamiento alternativo.</p>
+                    <h5>Hostal Rafi</h5>
+                    <p><a href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIMCAEQIxgnGIAEGIoFMgwIAhAjGCcYgAQYigUyCggDEAAYgAQY5wQyCggEEAAYgAQY5wQyDQgFEAAYgwEYsQMYgAQyDQgGEC4YrwEYxwEYgAQyBwgHEAAYgAQyBwgIEAAYgAQyBwgJEAAYgATSAQgxMjA4ajBqNKgCALACAA&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KXHJms4ykW0NMdM_ftwMCkhC&daddr=C.+Isabel+la+Cat%C3%B3lica,+4,+14800+Priego+de+C%C3%B3rdoba,+C%C3%B3rdoba" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></p>
                     <ul>
-                        <li><strong>Nombre:</strong> Pendiente</li>
-                        <li><strong>Telefono:</strong> Pendiente</li>
-                        <li><strong>Email:</strong> Pendiente</li>
-                        <li><strong>Nota:</strong> Decir que vienes a la boda de Antonio e Isa</li>
+                        <li><strong>Teléfono:</strong> 957 540 749</li>
+                        <li><strong>Precio aprox:</strong> 75 €/noche</li>
+                        <li><strong>Web:</strong> <a href="https://hosteriaderafi.es/" target="_blank" rel="noopener noreferrer">hosteriaderafi.es</a></li>
+                        <li><strong>Habitaciones bloqueadas:</strong> 5</li>
+                        <li><strong>Nota:</strong> Más habitaciones si se quedan 3 noches (opción de 3 días). Decir que venís de parte de la boda de Isa y Antonio</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="content-card lodging-card not-available">
+                    <h5>Hotel Fuente la Piedra</h5>
+                    <p><strong>No disponible actualmente</strong></p>
+                    <p>Aún no se ha hablado con el hotel ni se ha bloqueado una tarifa de habitación para la boda.</p>
+                    <ul>
+                        <li><strong>Teléfono:</strong> Consultar</li>
+                        <li><strong>Precio aprox:</strong> 75 €/noche</li>
+                        <li><strong>Web:</strong> Consultar</li>
+                        <li><strong>Habitaciones bloqueadas:</strong> 70</li>
+                        <li><strong>Nota:</strong> Sigue sin confirmación de bloqueo; por favor elige otro hotel.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="content-card lodging-card">
+                    <h5>Hotel Las Rosas</h5>
+                    <p><a href="https://www.google.com/maps?gs_lcrp=EgZjaHJvbWUyBggAEEUYOTITCAEQLhivARjHARiABBiYBRiZBTIHCAIQABiABDITCAMQLhivARjHARiABBiYBRiZBTIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABNIBBzcwN2owajeoAgCwAgA&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KTeFDc35kG0NMSpizqV7UFPE&daddr=Calle+Ntra.+Sra.+de+los+Remedios,+6,+14800+Priego+de+C%C3%B3rdoba,+C%C3%B3rdoba" target="_blank" rel="noopener noreferrer">Ver en Google Maps</a></p>
+                    <ul>
+                        <li><strong>Teléfono:</strong> 957 540 449</li>
+                        <li><strong>Precio aprox:</strong> 70 €/noche</li>
+                        <li><strong>Web:</strong> <a href="https://hotellasrosas.net/" target="_blank" rel="noopener noreferrer">hotellasrosas.net</a></li>
+                        <li><strong>Habitaciones bloqueadas:</strong> 19</li>
+                        <li><strong>Nota:</strong> Llamar diciendo que venís de parte de la boda de Isa y Antonio</li>
                     </ul>
                 </div>
             </div>
@@ -710,6 +937,51 @@
                 setAlert('error', 'No hemos podido enviar tu confirmacion. Intentalo de nuevo en unos minutos.');
             });
         });
+    });
+</script>
+
+<!-- Carousel JavaScript -->
+<script>
+    let currentSlideIndex = 0;
+
+    function carouselNext() {
+        showSlide(currentSlideIndex + 1);
+    }
+
+    function carouselPrev() {
+        showSlide(currentSlideIndex - 1);
+    }
+
+    function currentSlide(n) {
+        showSlide(n);
+    }
+
+    function showSlide(n) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.dot');
+
+        if (n >= slides.length) {
+            currentSlideIndex = 0;
+        } else if (n < 0) {
+            currentSlideIndex = slides.length - 1;
+        } else {
+            currentSlideIndex = n;
+        }
+
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        slides[currentSlideIndex].classList.add('active');
+        dots[currentSlideIndex].classList.add('active');
+    }
+
+    // Initialize carousel on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const fallbackImg = document.querySelector('.carousel-slide img[src^="data:image/jpeg;base64"]');
+        if (fallbackImg) {
+            fallbackImg.src = 'https://picsum.photos/id/1015/1200/800';
+        }
+        showSlide(0);
     });
 </script>
 </body>
